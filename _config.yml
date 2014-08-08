@@ -9,7 +9,7 @@ permalink:        pretty
 title:            'Snippets of Thought'
 tagline:          'insert tagline'
 url:              https://cbarrick.github.io
-paginate:         3
+paginate:         1
 baseurl:          /
 author:
   name:           'Chris Barrick'
