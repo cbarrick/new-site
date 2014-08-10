@@ -1,0 +1,607 @@
+---
+# // This file will be automatically processed by Jekyll
+# // Reference the resulting css as public/css/main.css
+---
+
+// Contents
+// -------------------------
+// Variables
+// Body resets
+// Custom type
+// Container
+// Masthead
+// Posts and pages
+// Pagination
+// Reverse layout
+// Themes
+
+
+// Variables
+// -------------------------
+
+// Type
+$main-font:       "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+$monospace-font:  "Menlo", "Monaco", "Courier New", monospace;
+
+// Color scheme - http://adobe.ly/1BcdxHb
+$text:      #404040;
+$darker :   darken($text, 25%);
+$lighter:   lighten($text, 25%);
+$lightest:  #F2F2F2;
+
+$primary:   #8FBF3B; // green
+$secondary: #3BA2E5; // light blue
+$tertiary:  #1E82C2; // dark blue, currently unused
+
+$background: white;
+
+// Media query breakpoints
+$large: 848px;
+$medium: 678px;
+$small: 608px;
+
+// Other
+$transition: all 0.3s ease;
+
+
+// Body resets
+// -------------------------
+// Update the foundational and global aspects of the page.
+
+* {
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+	        box-sizing: border-box;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	font: 16px $main-font;
+	line-height: 1.5;
+
+	@media (min-width: $large) {
+			font-size: 20px;
+	}
+}
+
+body {
+	color: $text;
+	background-color: $background;
+	-webkit-text-size-adjust: 100%;
+	    -ms-text-size-adjust: 100%;
+}
+
+
+// ### Links
+
+:link {
+	color: $secondary;
+	text-decoration: none;
+
+	// `:focus` is linked to `:hover` for basic accessibility
+	&:hover,
+	&:focus {
+		text-decoration: underline;
+	}
+
+	strong {
+		color: inherit;
+	}
+}
+
+:visited {
+	color: $secondary;
+}
+
+
+// ### Headings
+
+%heading {
+	margin-bottom: .5em;
+	font-weight: bold;
+	line-height: 1.25;
+	color: $text;
+	text-rendering: optimizeLegibility;
+}
+
+h1 {
+	@extend %heading;
+	font-size: 2em;
+}
+
+h2 {
+	@extend %heading;
+	margin-top: 1em;
+	font-size: 1.5em;
+}
+
+h3 {
+	@extend %heading;
+	margin-top: 1.5em;
+	font-size: 1.25em;
+}
+
+h4, h5, h6 {
+	@extend %heading;
+	margin-top: 1em;
+	font-size: 1em;
+}
+
+
+// ### Body text
+
+p {
+	margin-top: 0;
+	margin-bottom: 1em;
+}
+
+strong {
+	color: $darker;
+}
+
+small {
+	font-size: 75%;
+	font-weight: 400;
+	color: $lighter;
+	letter-spacing: 0;
+}
+
+
+// ### Lists
+
+ul, ol, dl {
+	margin-top: 0;
+	margin-bottom: 1em;
+}
+
+dt {
+	font-weight: bold;
+}
+
+dd {
+	margin-bottom: .5em;
+}
+
+
+// ### Code
+
+%monospace {
+	font-family: $monospace-font;
+}
+
+code {
+	@extend %monospace;
+	padding: .25em .5em;
+	font-size: 85%;
+	color: $tertiary;
+	background-color: $lightest;
+	border-radius: 4px;
+}
+
+pre {
+	@extend %monospace;
+	display: block;
+	margin-top: 0;
+	margin-bottom: 1em;
+	padding: 1em;
+	font-size: .8em;
+	line-height: 1.4;
+	white-space: pre;
+	white-space: pre-wrap;
+	word-break: break-all; // TODO: Is this a good idea?
+	word-wrap: break-word;
+	background-color: $lightest;
+
+	code {
+		padding: 0;
+		font-size: 100%;
+		color: inherit;
+		background-color: transparent;
+	}
+}
+
+// Pygments via Jekyll
+// TODO: Do I want to keep this?
+.highlight {
+	margin-bottom: 1em;
+	border-radius: 4px;
+
+	pre {
+		margin-bottom: 0;
+	}
+}
+
+
+// ### Tables
+
+table {
+	margin-bottom: 1em;
+	width: 100%;
+	border: none;
+	border-collapse: collapse;
+}
+
+td,
+th {
+	min-width: 120px;
+	padding: .25em .5em;
+	border-bottom: 1px solid transparentize($lighter, 0.9);
+}
+
+tbody tr:nth-child(odd) td,
+tbody tr:nth-child(odd) th {
+	background-color: transparentize($lighter, 0.9);
+}
+
+
+// ### Misc
+
+img {
+	display: block;
+	max-width: 100%;
+	margin: 0 0 1em;
+	border-radius: 4px;
+}
+
+blockquote {
+	padding: .5em 1em;
+	margin: .8em 0;
+	color: lighten($text, 10%);
+	border-left: .25em solid $lighter;
+
+	p:last-child {
+		margin-bottom: 0;
+	}
+
+	@media (min-width: $large) {
+		padding-right: 5em;
+		padding-left: 1.25em;
+	}
+}
+
+hr {
+	position: relative;
+	margin: 1.5em 0;
+	border: 0;
+	border-top: 1px solid #eee;
+	border-bottom: 1px solid #fff;
+}
+
+abbr {
+	font-size: 85%;
+	font-weight: bold;
+	text-transform: uppercase;
+
+	&[title] {
+		cursor: help;
+		border-bottom: 1px dotted $lighter;
+	}
+}
+
+
+// Utilities
+// -------------------------
+
+// ### Clearfix
+%clearfix::before,
+%clearfix::after {
+	content: " ";
+	display: block;
+}
+
+%clearfix::after {
+	clear: both;
+}
+
+// ### Custom type
+// Extend paragraphs with `.lead` for larger introductory text.
+
+.lead {
+	font-size: 1.25em;
+	font-weight: 300;
+}
+
+
+// ### Container
+// Center the page content.
+
+.container {
+	max-width: 38em;
+	padding-left: 1em;
+	padding-right: 1em;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
+// ### Hidden
+// Useful for purely semantic tags
+
+.hidden {
+	display: none;
+}
+
+
+// ### Scroll / Noscroll
+
+.scroll {
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.noscroll {
+	overflow: hidden;
+}
+
+
+// Masthead
+// -------------------------
+// Super small header above the content for site name and short description.
+
+#masthead {
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	padding-top: 1em;
+	padding-bottom: 1em;
+	z-index: 50;
+	text-align: center;
+
+	@media (min-width: $medium) {
+		text-align: left;
+	}
+}
+
+#masthead-title {
+	display: inline;
+	margin-top: 0;
+	margin-bottom: 0;
+	color: inherit;
+	font-size: 1.25em;
+
+	a {
+		color: inherit;
+	}
+}
+
+#masthead-tagline {
+	display: none;
+	color: $lighter;
+
+	@media (min-width: $medium) {
+		display: inline;
+	}
+}
+
+
+// Posts and pages
+// -------------------------
+// Each post is wrapped in `.post` and is used on the index and post layout.
+// Each page is wrapped in `.page` and is only used on the page layout.
+
+main {
+	margin-top: 6em;
+}
+
+.page,
+.post {
+	margin-bottom: 4em;
+}
+
+// Blog post or page title
+.page-title,
+.post-title {
+	margin-top: 0;
+	color: $darker;
+
+	a {
+		color: inherit;
+	}
+}
+
+// Meta data line below post title
+.post-date {
+	display: block;
+	margin-top: -.5em;
+	margin-bottom: 1em;
+	color: $lighter;
+}
+
+// Related posts
+.related {
+	padding-top: 2em;
+	padding-bottom: 2em;
+	border-top: 1px solid $lighter;
+}
+
+.related-posts {
+	padding-left: 0;
+	list-style: none;
+
+	h3 {
+		margin-top: 0;
+	}
+}
+
+// Pagination
+// -------------------------
+// Super lightweight (HTML-wise) blog pagination. `span`s are provide for when
+// there are no more previous or next posts to show.
+
+.pagination {
+	@extend %clearfix;
+
+	margin-left: -1em;
+	margin-right: -1em;
+	color: $lightest;
+	text-align: center;
+
+	@media (min-width: $small) {
+		margin: 3em 0;
+	}
+}
+
+// Pagination items can be `span`s or `a`s
+.pagination-item {
+	display: block;
+	padding: 1em;
+	border: 1px solid $lightest;
+
+	@media (min-width: $small) {
+		float: left;
+		width: 50%;
+	}
+
+	&:first-child {
+		margin-bottom: -1px;
+
+		@media (min-width: $small) {
+			margin-bottom: 0;
+			border-top-left-radius: 4px;
+			border-bottom-left-radius: 4px;
+		}
+	}
+
+	&:last-child {
+		@media (min-width: $small) {
+			margin-left: -1px;
+			border-top-right-radius: 4px;
+			border-bottom-right-radius: 4px;
+		}
+	}
+
+	// Only provide a hover state for linked pagination items
+	&:link:hover {
+		background-color: $lightest;
+	}
+
+	// Don't change color if visited
+	&:visited {
+		color: $secondary;
+	}
+}
+
+
+// Menu
+// -------------------------
+// An overlay menu toggled by a hidden checkbox
+
+// ### The menu button
+
+#menu-checkbox {
+	display: none;
+}
+
+#menu-toggle {
+	position: absolute;
+	top: 1.25em;
+	left: 1.25em;
+	display: block;
+	color: $primary;
+	cursor: pointer;
+	z-index: 100;
+	transition: $transition;
+
+	// The #menu-toggle is a mega-octicon, which has a default font-size of 32px;
+	font-size: 1rem;
+
+	@media (min-width: $medium) {
+		position: fixed;
+	}
+}
+
+#menu-checkbox:checked ~ #menu-toggle {
+	color: $lightest;
+}
+
+// Move the masthead into place when the menu opens
+#menu-checkbox:checked ~ #masthead {
+	position: fixed;
+
+	#masthead-tagline {
+		transition: $transition;
+		color: $lightest;
+	}
+}
+
+
+// ### The menu overlay
+
+#menu {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	opacity: 0;
+	visibility: hidden;
+	background-color: transparent;
+	transition: $transition;
+
+	a,
+	small,
+	/*%heading*/ {
+		color: $lightest;
+	}
+}
+
+#menu-checkbox:checked ~ #menu {
+	opacity: 1;
+	visibility: visible;
+	background-color: $primary;
+}
+
+
+// ### Author profile
+
+#profile {
+	@extend %clearfix;
+	margin-top: 5em;
+	width: 100%;
+}
+
+#author-avatar {
+	float: left;
+	margin: 0 2em 0 4em;
+	width: 6em;
+	height: 6em;
+}
+
+
+// ### Pages list
+
+#pages {
+	padding-left: 1em;
+	padding-right: 1em;
+
+	@media (min-width: $medium) {
+		width: 25%;
+		float: left;
+	}
+
+	ul {
+		list-style: none;
+	}
+
+	li::before {
+		font-family: "octicons";
+		content: "\f078";
+		position: relative;
+		right: 1em;
+	}
+}
+
+
+// ### Archive
+
+// The table in the #archive clears the floating #pages list by default.
+// "overflow: hidden" prevents this behavior, but I'm not sure why.
+#archive {
+	overflow-x: hidden;
+}

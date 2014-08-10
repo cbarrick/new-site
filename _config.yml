@@ -11,8 +11,12 @@ tagline:          'insert tagline'
 url:              https://cbarrick.github.io
 paginate:         1
 baseurl:          /
+exclude:          [private]
 author:
   name:           'Chris Barrick'
   url:            https://cbarrick.github.io
   email:          cbarrick1@gmail.com
+  avatar:         http://s.gravatar.com/avatar/c39968962a7062a69d24cdd78236a12b?s=500
 timezone:         US/Eastern
+
+description: "My name is Chris Barrick, and I'm a ninja."
